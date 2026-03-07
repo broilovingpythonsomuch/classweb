@@ -381,8 +381,21 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Seed error:", error);
+    const message = error instanceof Error ? error.message : String(error);
+    const code = error && typeof error === "object" && "code" in error ? (error as { code?: string }).code : null;
     return NextResponse.json(
-      { error: "Failed to seed database" },
+      {
+        error: "Failed to seed database",
+        details: message,
+        ...(code && { code }),
+        hint: !process.env.DATABASE_URL
+          ? "DATABASE_URL not set in Vercel Environment Variables"
+          : code === "P2021"
+          ? "Run: npx prisma db push (with same DATABASE_URL as Vercel)"
+          : code === "P1001"
+          ? "Check DATABASE_URL - can't reach Neon. Use pooled URL (-pooler) for Vercel."
+          : undefined,
+      },
       { status: 500 }
     );
   }
