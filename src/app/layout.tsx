@@ -11,23 +11,23 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "ClassHub - Modern Class Management System",
+  title: "Class 7.3 - Class Website",
   description:
-    "A beautiful and intuitive class management system for students, teachers, and administrators.",
+    "Official website for Class 7.3 - students, schedule, announcements, teachers, and class structure.",
   keywords: [
-    "Class Management",
+    "Class 7.3",
     "Education",
     "Students",
     "Teachers",
     "Schedule",
   ],
-  authors: [{ name: "ClassHub Team" }],
+  authors: [{ name: "Class 7.3" }],
   icons: {
-    icon: "https://api.dicebear.com/7.x/shapes/svg?seed=classhub",
+    icon: "https://api.dicebear.com/7.x/shapes/svg?seed=class73",
   },
   openGraph: {
-    title: "ClassHub - Modern Class Management System",
-    description: "A beautiful and intuitive class management system",
+    title: "Class 7.3 - Class Website",
+    description: "Official website for Class 7.3",
     type: "website",
   },
 };

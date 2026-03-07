@@ -201,9 +201,9 @@ export async function GET() {
     const announcements = await Promise.all([
       db.announcement.create({
         data: {
-          title: "Welcome to ClassHub",
+          title: "Welcome to Class 7.3",
           content:
-            "Welcome to our class management system. This platform helps students, teachers, and administrators stay connected and organized. Explore all features and contact us if you have questions.",
+            "Welcome to the Class 7.3 website! This platform helps students, teachers, and administrators stay connected and organized. Explore all features and contact us if you have any questions.",
           priority: "high",
           isPinned: true,
           authorId: admin.id,
