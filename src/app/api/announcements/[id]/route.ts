@@ -4,10 +4,10 @@ import { db } from "@/lib/db";
 // GET single announcement
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const announcement = await db.announcement.findUnique({
       where: { id },
     });
@@ -28,10 +28,10 @@ export async function GET(
 // UPDATE announcement
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const body = await request.json();
 
     const announcement = await db.announcement.update({
@@ -56,10 +56,10 @@ export async function PUT(
 // DELETE announcement
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     await db.announcement.delete({
       where: { id },
     });

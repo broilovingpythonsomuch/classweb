@@ -12,8 +12,15 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "ClassHub - Modern Class Management System",
-  description: "A beautiful and intuitive class management system for students, teachers, and administrators.",
-  keywords: ["Class Management", "Education", "Students", "Teachers", "Schedule"],
+  description:
+    "A beautiful and intuitive class management system for students, teachers, and administrators.",
+  keywords: [
+    "Class Management",
+    "Education",
+    "Students",
+    "Teachers",
+    "Schedule",
+  ],
   authors: [{ name: "ClassHub Team" }],
   icons: {
     icon: "https://api.dicebear.com/7.x/shapes/svg?seed=classhub",

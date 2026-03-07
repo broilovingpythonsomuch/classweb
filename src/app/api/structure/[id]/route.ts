@@ -4,10 +4,10 @@ import { db } from "@/lib/db";
 // GET single class structure
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const structure = await db.classStructure.findUnique({
       where: { id },
       include: {
@@ -31,10 +31,10 @@ export async function GET(
 // UPDATE class structure
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const body = await request.json();
 
     const structure = await db.classStructure.update({
@@ -60,10 +60,10 @@ export async function PUT(
 // DELETE class structure
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     await db.classStructure.delete({
       where: { id },
     });

@@ -4,10 +4,10 @@ import { db } from "@/lib/db";
 // GET single schedule
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const schedule = await db.schedule.findUnique({
       where: { id },
     });
@@ -28,10 +28,10 @@ export async function GET(
 // UPDATE schedule
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const body = await request.json();
 
     const schedule = await db.schedule.update({
@@ -60,10 +60,10 @@ export async function PUT(
 // DELETE schedule
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     await db.schedule.delete({
       where: { id },
     });

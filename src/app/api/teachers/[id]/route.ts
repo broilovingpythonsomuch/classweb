@@ -4,10 +4,10 @@ import { db } from "@/lib/db";
 // GET single teacher
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const teacher = await db.teacher.findUnique({
       where: { id },
     });
@@ -28,10 +28,10 @@ export async function GET(
 // UPDATE teacher
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     const body = await request.json();
 
     const teacher = await db.teacher.update({
@@ -59,10 +59,10 @@ export async function PUT(
 // DELETE teacher
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
     await db.teacher.delete({
       where: { id },
     });
