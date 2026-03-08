@@ -7,6 +7,7 @@ import {
   validatePassword,
   sanitizeInput,
 } from "@/lib/crypto";
+import { sendVerificationEmail, generateVerificationCode } from "@/lib/email";
 
 // Rate limiting store (in-memory, resets on server restart)
 const rateLimitStore = new Map<string, { count: number; lastAttempt: number }>();
@@ -111,8 +112,9 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Generate verification token
+    // Generate verification token and code
     const verificationToken = generateVerificationToken();
+    const verificationCode = generateVerificationCode();
     const tokenExpiry = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
 
     // Hash password and create user
@@ -131,15 +133,25 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // In production, you would send an email here
-    // For demo purposes, we return the verification token
-    // In real app: await sendVerificationEmail(email, verificationToken);
+    // Send verification email
+    const emailResult = await sendVerificationEmail({
+      email: sanitizedEmail,
+      verificationCode,
+      verificationToken,
+      userName: sanitizedName,
+    });
+
+    if (!emailResult.success) {
+      console.error("Failed to send verification email:", emailResult.error);
+      // Don't fail the signup, but log the error
+    }
 
     return NextResponse.json({
-      message: "Account created successfully. Please verify your email.",
+      message: "Account created successfully. Please check your email for verification instructions.",
       userId: user.id,
-      // Remove this in production - only for demo
-      verificationToken: process.env.NODE_ENV === "development" ? verificationToken : undefined,
+      emailSent: emailResult.success,
+      // Include verification code for development/testing
+      verificationCode: process.env.NODE_ENV === "development" ? verificationCode : undefined,
     });
   } catch (error) {
     console.error("Signup error:", error);
